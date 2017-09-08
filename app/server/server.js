@@ -40,7 +40,7 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (user, done) {
     const db = app.get('db');
-    db.user_authentication(profile.id).then(user => {
+    db.user_authentication(user.id).then(user => {
         if (user[0]) {
             return done(null, user);
         } else {
@@ -52,7 +52,7 @@ passport.deserializeUser(function (user, done) {
 });
 
 app.get('/api/auth/login', passport.authenticate('auth0', {
-    successRedirect: 'http://localhost:3000/#/', 
+    successRedirect: 'http://localhost:3000/#/dashboard', 
     failureRedirect: 'http://localhost:3000/#/api/auth/login'
 }));
 
