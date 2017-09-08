@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export default class Profile extends Component {
     constructor() {
@@ -13,7 +14,8 @@ export default class Profile extends Component {
             hobby: '',
             birthdayDay: '',
             birthdayMonth: '',
-            birthdayYear: ''
+            birthdayYear: '',
+            errorMessage: ''
         }
 
         this.updateState = this.updateState.bind(this);
@@ -25,33 +27,25 @@ export default class Profile extends Component {
             [property]: input
         })
     }
-    // updateBirthday(input){
-    //     this.setState({
-    //         birthdayDay: input[]
-    //     })
-    // }
 
     updateInfo() {
-        console.log(this.state);
-    }
-
-    birthdayDayValues() {
-        var days = [];
-        for (let i = 1; i <= 31; i++) {
-            if (i < 10)
-                days.push(<option key={i} value={'0' + i}>{'0' + i}</option>)
-            else
-                days.push(<option key={i} value={i}>{i}</option>)
+        //Update state values to Redux!
+        if (this.state.birthdayDay
+            && this.state.birthdayMonth
+            && this.state.birthdayYear) {
+            console.log(this.state);
+            this.setState({
+                errorMessage: ''
+            })
+        } else {
+            this.setState({
+                errorMessage: 'Required fields: Birthday Day, Month, and Year.'
+            })
         }
-        return days;
-    }
 
-    birthdayYearValues() {
-        var years = [];
-        for (let i = 2017; i >= 1917; i--) {
-            years.push(<option key={i} value={i}>{i}</option>)
-        }
-        return years;
+    }
+    cancelButton() {
+        //Change state values to the same as Redux store values
     }
 
     render() {
@@ -60,10 +54,15 @@ export default class Profile extends Component {
                 <div>
                     <h1>Profile Page</h1>
                     <button onClick={() => this.updateInfo()}>Update</button>
-                    <button>Cancel</button>
+                    <Link to='/dashboard'>
+                        <button>Cancel</button>
+                    </Link>
                 </div>
 
                 <div>
+                    <div>
+                        <img src={'https://robohash.org/me'} alt='' />
+                    </div>
                     <h5>First Name</h5>
                     <input type='text' onChange={(input) => this.updateState('firstName', input.target.value)} />
                     <h5>Last Name</h5>
@@ -133,7 +132,31 @@ export default class Profile extends Component {
                     </select>
 
                 </div>
+
+                {/* Error Message */}
+                <div>
+                    <h4>{this.state.errorMessage}</h4>
+                </div>
             </div>
         )
+    }
+
+    birthdayDayValues() {
+        var days = [];
+        for (let i = 1; i <= 31; i++) {
+            if (i < 10)
+                days.push(<option key={i} value={'0' + i}>{'0' + i}</option>)
+            else
+                days.push(<option key={i} value={i}>{i}</option>)
+        }
+        return days;
+    }
+
+    birthdayYearValues() {
+        var years = [];
+        for (let i = 2017; i >= 1917; i--) {
+            years.push(<option key={i} value={i}>{i}</option>)
+        }
+        return years;
     }
 }
