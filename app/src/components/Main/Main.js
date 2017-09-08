@@ -1,19 +1,34 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './Main.css';
 
 export default class Main extends Component {
     render() {
         return (
-            <div>
+            <div className='dashboard_container'>
+                <section className='dashboard_header'>
+                    <Link to='/dashboard'>
+                        <h2>Helo</h2>
+                    </Link>
+                    <h2>Dashboard</h2>
+                    <a href={process.env.REACT_APP_LOGOUT}><h2>Logout</h2></a>
+                </section>
                 <h1>Main Page</h1>
-                <div>
-                    <img src={'https://robohash.org/me'} alt='' />
-                </div>
-                <Link to='/profile'>
-                    <button>Edit Profile</button>
-                </Link>
+                <div className='profile_container'>
+                    <section className='profile_info'>
+                        <img src={'https://robohash.org/me'} alt='' />
+                    </section>
+                    <Link to='/profile'>
+                        <button>Edit Profile</button>
+                    </Link>
 
-                <div>
+                    <section className='welcome_landing'>
+                        <p>Welcome to Helo! Find recommended friends based on your similarities, and even search for them by name.
+                            The more you update your profile, the better recommendations we can make!</p>
+                    </section>
+                </div>
+
+                <div className='recommended_friends'>
                     <h2>Recommended Friends</h2>
                     <h4>Sorted By</h4>
                     <select value='sortBy'>
@@ -26,7 +41,6 @@ export default class Main extends Component {
                         <option value='birthday'>Birthday</option>
                     </select>
                     <h4>Show Friends Here</h4>
-                    <a href={process.env.REACT_APP_LOGOUT}><button>Log Out</button></a>
                 </div>
             </div>
         )

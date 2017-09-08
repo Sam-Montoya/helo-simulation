@@ -8,6 +8,7 @@ const express = require('express'),
     session = require('express-session');
 
 const app = express();
+const controllers = require('./controllers/apiController')
 
 app.use(session({
     secret: process.env.SECRET,
@@ -68,6 +69,15 @@ app.get('/api/auth/logout', (req, res) => {
     req.logOut();
     return res.redirect(302, 'http://localhost:3000/#/');
 });
+
+app.get('/api/auth/getAll', (req, res) =>{
+    req.app.get('db').get_all().then(users => {
+        res.status(200).send(users);
+    })
+})
+
+app.get('/api/getFriends', controllers.search_last_name);
+app.get('/api/getFriends', controllers.search_first_name);
 
 const port = 3010;
 app.listen(port, console.log(`It's lit on ${port} fam!`));

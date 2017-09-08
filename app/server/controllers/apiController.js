@@ -10,20 +10,21 @@ module.exports = {
             res.status(200).send(friends != session.user);
         })
     },
-    search:  function(req,res,next){
-            let { query } = req
-            if(query.includes(first_name)){
-                return req.app.get('db').filter_first_name(query.first_name).then(filtered => {
-                    res.status(200).send(filtered);
-                })
-            } else {
-                req.app.get('db').filter_last_name(query.last_name).then( filtered => {
-                    res.status(200).send(filtered);
-                })
-            }
+    search_first_name:  function(req,res,next){
         
-                             
-    },
+        
+                let { query } = req
+                
+                req.app.get('db').filter_first_name( query.first_name ).then( filtered => res.status(200).send( filtered ) )
+        
+            },
+                search_last_name:  function(req,res,next){
+                    
+                    
+                            let { query } = req
+                            
+                            req.app.get('db').filter_last_name( query.last_name ).then( filtered => res.status(200).send( filtered ) )
+        },
     addFriend: function(req, res, next){
         const { friendId, authId } = req.body;
         req.app.get('db').add_friends(friendId, authId).then(added => {
