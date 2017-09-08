@@ -68,3 +68,6 @@ app.get('/api/auth/logout', (req, res) => {
     req.logOut();
     return res.redirect(302, 'http://localhost:3000/#/');
 });
+
+const port = 3010;
+app.listen(port, console.log(`It's lit on ${port} fam!`));
