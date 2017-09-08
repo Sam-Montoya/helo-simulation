@@ -40,11 +40,11 @@ passport.serializeUser(function (user, done) {
 
 passport.deserializeUser(function (user, done) {
     const db = app.get('db');
-    db.find_user(profile.id).then(user => {
+    db.user_authentication(profile.id).then(user => {
         if (user[0]) {
             return done(null, user);
         } else {
-            db.create_user(["", "", "", "", "", "", "", user.picture, user.id]).then(user => {
+            db.create_user([user.picture, "", "", "", "", "", user.first, user.last, user.id, ""]).then(user => {
                 return done(null, user[0]);
             });
         }
