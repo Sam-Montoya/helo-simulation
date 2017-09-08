@@ -1,11 +1,9 @@
 module.exports = {
-
     getFriendsList: function(req, res, next){
         req.app.get('db').getFriends(session.user.id).then(friends => {
             res.status(200).send(friends)
         });
     },
-
     recommended:  function(req,res,next){
         const value = req.body;
         req.app.get('db').getFriends(value, session.user.value).then(friends => {
@@ -25,7 +23,26 @@ module.exports = {
             }
         
                              
-    }
-
-
+    },
+    addFriend: function(req, res, next){
+        const { friendId, authId } = req.body;
+        req.app.get('db').add_friends(friendId, authId).then(added => {
+            added.app.get('db').getFriends(session.user.id).then(friends => {
+                res.status(200).send(friends);
+            });
+        })
+    },
+    removeFriend: function(req, res, next){
+        const { friendId, authId } = req.body;
+        req.app.get('db').remove_friends(friendId, authId).then(removed => {
+            removed.app.get('db').getFriends(session.user.id).then(friends => {
+                res.status(200).send(friends);
+            })
+        })
+    },
+    updateUser: function(req, res, next) {
+        req.app.get('db').update_user().then(user => {
+            res.status(200).send(user)
+        })
+    },
 }
