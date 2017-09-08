@@ -1,14 +1,17 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
+import './Main.css';
 
 export default class Main extends Component {
     render() {
         return (
             <div className='dashboard_container'>
-                <section className='header'>
-                    <h2>Helo</h2>
+                <section className='dashboard_header'>
+                    <Link to='/dashboard'>
+                        <h2>Helo</h2>
+                    </Link>
                     <h2>Dashboard</h2>
-                    <h2>Logout</h2>
+                    <a href={process.env.REACT_APP_LOGOUT}><h2>Logout</h2></a>
                 </section>
                 <h1>Main Page</h1>
                 <div className='profile_container'>
