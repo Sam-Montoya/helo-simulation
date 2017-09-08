@@ -26,6 +26,7 @@ export default class Main extends Component {
                         <option value='birthday'>Birthday</option>
                     </select>
                     <h4>Show Friends Here</h4>
+                    <a href={process.env.REACT_APP_LOGOUT}><button>Log Out</button></a>
                 </div>
             </div>
         )

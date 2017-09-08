@@ -44,7 +44,7 @@ passport.deserializeUser(function (user, done) {
         if (user[0]) {
             return done(null, user);
         } else {
-            db.create_user([user.picture, "", "", "", "", "", user.first, user.last, user.id, ""]).then(user => {
+            db.create_user([user.picture, "", "", "", "", "", user.first, user.last, user.id, null]).then(user => {
                 return done(null, user[0]);
             });
         }
